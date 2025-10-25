@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 import os
+import sys
 import uuid
 from getpass import getpass
 from utils.vault_handler import load_vault, add_entry, delete_entry
@@ -10,19 +12,17 @@ from utils.config_handler import (
     set_master_password,
 )
 
-
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def init():
+def init() -> bool:
+    """Check if master password exists in config."""
     config = load_config()
-    if config.get("master_password") is None:
-        return False
-    return True
-
+    return bool(config.get("master_password"))
 
 def create_user():
+    clear()
     print("Create a new NorthVaultPy user\n")
 
     username = input("Username --> ").strip()
@@ -37,7 +37,7 @@ def create_user():
     confirm_password = getpass("Confirm master password --> ").strip()
 
     if master_password != confirm_password:
-        print("Passwords do not match.")
+        print("Passwords do not match. Try again.\n")
         return create_user()
 
     user_config = {
@@ -51,9 +51,8 @@ def create_user():
 
     save_config(user_config)
     print("User created successfully!\n")
-
-
-def authenticate():
+    
+def authenticate() -> str:
     config = load_config()
     saved_hash = config.get("master_password")
 
@@ -64,21 +63,21 @@ def authenticate():
             print("Access granted.\n")
             return password
         print("Incorrect password.\n")
-
-
-def show_saved(master_password):
+        
+def show_saved(master_password: str):
     saved_passwords = load_vault(master_password)
     if not saved_passwords:
         print("No saved passwords yet.\n")
-    else:
-        print("\nSaved Credentials:\n")
-        for entry in saved_passwords:
-            print(
-                f"• {entry['service']} ({entry['Service username']}): {entry['password']}\n"
-            )
+        return
+
+    print("\nSaved Credentials:\n")
+    for entry in saved_passwords:
+        print(
+            f"• {entry['service']} ({entry['Service username']}): {entry['password']}\n"
+        )
 
 
-def save_new_password(master_password):
+def save_new_password(master_password: str):
     while True:
         try:
             length = int(input("Please enter password length --> "))
@@ -90,7 +89,6 @@ def save_new_password(master_password):
             print("Please enter a valid number.")
 
     generated_password = generate_password(length=length)
-
     service = input("Password service name --> ").strip()
     username = input("Service username --> ").strip()
 
@@ -109,41 +107,41 @@ def save_new_password(master_password):
 def update_password():
     config = load_config()
     saved_hash = config.get("master_password")
+    password = getpass("Enter current master password --> ").strip()
 
-    password = getpass("Enter master password --> ")
-    new_password = ""
+    if hash_password(password) != saved_hash:
+        print("Incorrect master password.\n")
+        return
 
-    if hash_password(password) == saved_hash:
-        while new_password == "":
-            new_password = getpass("Enter new master password --> ")
+    new_password = getpass("Enter new master password --> ").strip()
+    confirm_password = getpass("Confirm new master password --> ").strip()
 
-        set_master_password(new_password)
-        clear()
-        print("Password updated successfully!\n")
+    if new_password != confirm_password:
+        print("Passwords do not match.\n")
+        return
+
+    set_master_password(new_password)
+    clear()
+    print("Master password updated successfully!\n")
 
 
-def delete_password(master_password):
+def delete_password(master_password: str):
     saved_passwords = load_vault(master_password)
     if not saved_passwords:
-        print("No saved passwords yet.")
-    else:
-        print("\nSaved Credentials:\n")
-        for entry in saved_passwords:
-            print(
-                f"• {entry['id']} {entry['service']} ({entry['Service username']}): {entry['password']}\n"
-            )
+        print("No saved passwords yet.\n")
+        return
 
-        service_id = ""
+    print("\nSaved Credentials:\n")
+    for entry in saved_passwords:
+        print(
+            f"• {entry['id']} {entry['service']} ({entry['Service username']}): {entry['password']}\n"
+        )
 
-        while service_id == "":
-            service_id = input("Service id --> ")
-
-        delete_entry(service_id, master_password)
-
-        clear()
-        print("Service deleted successfully!\n")
-
-
+    service_id = input("Service ID to delete --> ").strip()
+    delete_entry(service_id, master_password)
+    clear()
+    print("Service deleted successfully!\n")
+    
 def main():
     northvault_art = r"""
       _   _            _   _ __      __         _ _   _____       
@@ -157,7 +155,7 @@ def main():
                         Created by: m223rx
                 GitHub: https://github.com/m223rx
     """
-
+    clear()
     print(northvault_art)
     print("Welcome to NorthVaultPy\n")
 
@@ -191,12 +189,10 @@ def main():
                 print("Goodbye!")
                 break
             case _:
-                print("Invalid choice. Please select 1-4.\n")
+                print("Invalid choice. Please select 1-5.\n")
 
 
 if __name__ == "__main__":
-    if init():
-        main()
-    else:
+    if not init():
         create_user()
-        main()
+    main()

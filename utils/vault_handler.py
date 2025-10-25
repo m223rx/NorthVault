@@ -1,4 +1,5 @@
-import json, os
+import json
+import os
 from .encryption import encrypt_data, decrypt_data
 
 VAULT_FILE = "vault.json.enc"
@@ -33,6 +34,22 @@ def add_entry(entry: dict, key: str) -> None:
     vault.append(entry)
     save_vault(vault, key)
 
+
+def update_entry(entry_id: str, new_entry: dict, key: str) -> None:
+    vault = load_vault(key)
+    found = False
+    for i, entry in enumerate(vault):
+        if entry["id"] == entry_id:
+            vault[i] = new_entry
+            found = True
+            break
+    if found:
+        save_vault(vault, key)
+        print("Entry updated successfully.")
+    else:
+        print("No entry found with that ID.")
+
+
 def delete_entry(entry_id: str, key: str) -> None:
     vault = load_vault(key)
     updated_vault = [entry for entry in vault if entry["id"] != entry_id]
@@ -40,3 +57,4 @@ def delete_entry(entry_id: str, key: str) -> None:
         print("No entry found with that ID.")
         return
     save_vault(updated_vault, key)
+    print("Entry deleted successfully.")

@@ -1,6 +1,6 @@
 # 🌐 m223rx – NorthVaultPy Password Manager
 
-![NorthVaultPy Screenshot](/assets/screenshots/home.png)
+![NorthVaultPy Screenshot](/resources/screenshots/home.png)
 
 ---
 
