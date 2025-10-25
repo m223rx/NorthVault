@@ -53,7 +53,7 @@
 
    ```bash
    git clone https://github.com/m223rx/NorthVaultPy.git
-   cd SoulLens
+   cd NorthVaultPy
    ```
 
 2. **Create a virtual environment (optional but recommended)**  
