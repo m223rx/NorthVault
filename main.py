@@ -22,7 +22,7 @@ def init() -> bool:
 
 def create_user():
     clear()
-    print("Create a new NorthVaultPy user\n")
+    print("Create a new NorthVault user\n")
 
     username = input("Username --> ").strip()
     while not username:
@@ -143,20 +143,19 @@ def delete_password(master_password: str):
     
 def main():
     northvault_art = r"""
-      _   _            _   _ __      __         _ _   _____       
-     | \ | |          | | | |\ \    / /        | | | |  __ \      
-     |  \| | ___  _ __| |_| |_\ \  / /_ _ _   _| | |_| |__) |   _ 
-     | . ` |/ _ \| '__| __| '_ \ \/ / _` | | | | | __|  ___/ | | |
-     | |\  | (_) | |  | |_| | | \  / (_| | |_| | | |_| |   | |_| |
-     |_| \_|\___/|_|   \__|_| |_|\/ \__,_|\__,_|_|\__|_|    \__, |
-                                                            __/ |
-                                                           |___/    
+      _   _            _   _ __      __         _ _       
+     | \ | |          | | | |\ \    / /        | | |       
+     |  \| | ___  _ __| |_| |_\ \  / /_ _ _   _| | |_
+     | . ` |/ _ \| '__| __| '_ \ \/ / _` | | | | | __|
+     | |\  | (_) | |  | |_| | | \  / (_| | |_| | | |_|
+     |_| \_|\___/|_|   \__|_| |_|\/ \__,_|\__,_|_|\__|
+
                         Created by: m223rx
                 GitHub: https://github.com/m223rx
     """
     clear()
     print(northvault_art)
-    print("Welcome to NorthVaultPy\n")
+    print("Welcome to NorthVault\n")
 
     master_password = authenticate()
 
