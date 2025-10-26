@@ -51,21 +51,27 @@
 
 1. **Clone the repository:**
 
-   ```bash
+   ```
    git clone https://github.com/m223rx/NorthVault.git
    cd NorthVault
    ```
 
-2. **Create a virtual environment (optional but recommended)**  
-    python3 -m venv venv
-    source venv/bin/activate   # Linux/macOS
-    venv\Scripts\activate      # Windows
+2. **Create a virtual environment (optional but recommended):**  
+   ```
+   python3 -m venv venv
+   source venv/bin/activate   # Linux/macOS
+   venv\Scripts\activate      # Windows
+   ```
 
-3. **Install dependencies**  
+3. **Install dependencies:**  
+   ```
    pip install -r requirements.txt
+   ```
 
-4. **Run NorthVault**  
-    python main.py  
+4. **Run NorthVault:**  
+   ```
+   python main.py  
+   ```
 
 5. **Follow the prompts**  
     If first time: create a new user with username, email, and master password.
