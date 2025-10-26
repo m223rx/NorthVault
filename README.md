@@ -73,7 +73,7 @@
    python main.py  
    ```
 
-5. **Follow the prompts**  
+5. **Follow the prompts:**  
 - If first time: create a new user with username, email, and master password.
 
 - Use the master password to authenticate.
