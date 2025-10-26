@@ -74,11 +74,11 @@
    ```
 
 5. **Follow the prompts**  
-    If first time: create a new user with username, email, and master password.
+- If first time: create a new user with username, email, and master password.
 
-    Use the master password to authenticate.
+- Use the master password to authenticate.
 
-    Choose from the CLI menu to view, add, or delete saved passwords, or generate new strong passwords.
+- Choose from the CLI menu to view, add, or delete saved passwords, or generate new strong passwords.
 
 ---
 
