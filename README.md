@@ -1,6 +1,6 @@
 # 🌐 m223rx – NorthVault Password Manager
 
-![NorthVaultPy Screenshot](/resources/screenshots/home.png)
+![NorthVault Screenshot](/resources/screenshots/home.png)
 
 ---
 
@@ -52,7 +52,7 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/m223rx/NorthVaultPy.git
+   git clone https://github.com/m223rx/NorthVault.git
    cd NorthVault
    ```
 
@@ -64,7 +64,7 @@
 3. **Install dependencies**  
    pip install -r requirements.txt
 
-4. **Run NorthVaultPy**  
+4. **Run NorthVault**  
     python main.py  
 
 5. **Follow the prompts**  
